@@ -1,0 +1,60 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-config-airbnb"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "./**/*.json"
+        ]
+    },
+    "jsRules": {
+        "no-empty": true
+    },
+    "rules": {
+        "ter-indent": [
+            true, 4,
+            {
+                "SwitchCase": true,
+                "FunctionDeclaration": {
+                    "parameters": 1,
+                    "body": 1
+                },
+                "FunctionExpression": {
+                    "parameters": 1,
+                    "body": 1
+                },
+                "MemberExpression": 1
+            }
+        ],
+        "experimentalDecorators": true,
+        "function-name": false,
+        "semicolon": false,
+        "object-curly-spacing": [2, "always"],
+        "array-bracket-spacing": false,
+        "quotemark": false,
+        "no-trailing-whitespace": false,
+        "max-line-length": false,
+        "trailing-comma": false,
+        "variable-name": false,
+        "prefer-array-literal": false,
+        "no-increment-decrement": false,
+        "no-consecutive-blank-lines": false,
+        "no-else-after-return": false,
+        "ter-arrow-parens": false,
+        "object-shorthand-properties-first": false,
+        "no-duplicate-imports": true,
+        "import-name": false,
+        "space-in-parens": false,
+        "align": false,
+        "ordered-imports": [
+            true,
+            {
+                "grouped-imports": true,
+                "named-imports-order": "any",
+                "import-sources-order": "any"
+            }
+        ]
+    },
+    "rulesDirectory": []
+}

@@ -1,0 +1,16 @@
+node_modules
+
+*.log
+.DS_Store
+lib
+coverage
+dist
+
+src/**/*.map
+src/contracts
+
+build
+
+bin
+/.idea/workspace.xml
+machine.*

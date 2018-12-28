@@ -1,0 +1,38 @@
+// tsconfig: tsconfig.spec.json
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+
+describe('AppController', () => {
+    let app: TestingModule;
+
+    beforeAll(async () => {
+        jest.setTimeout(1200000)
+
+        app = await Test.createTestingModule({
+            controllers: [AppController],
+            providers: [AppService],
+        }).compile();
+
+        const svc = await app.get<AppService>(AppService);
+        await svc.topics.synced
+
+        console.log('---- TESTS BEGINNING ----')
+    });
+
+    describe('root', () => {
+        it('GET !"', async () => {
+            const appController = app.get<AppController>(AppController);
+            expect(await appController.root()).toBe("Web3 version 0.20.7");
+        });
+    });
+
+    describe('/topics', () => {
+        it('GET /topics"', async () => {
+            const appController = app.get<AppController>(AppController);
+            expect(await appController.topics()).toBe("Web3 version 0.20.7");
+        });
+    });
+
+});
