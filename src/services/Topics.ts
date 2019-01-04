@@ -135,13 +135,13 @@ export class Topics {
 
         const total = filteredTopics.length
 
-        filteredTopics.sort((a, b) => a.endTime - b.endTime) // Descending by endTime
+        filteredTopics.sort((a, b) => b.endTime - a.endTime) // Descending by endTime
         if (notAfter) {
             filteredTopics = filteredTopics.filter(t => t.endTime < notAfter)
         } else {
             filteredTopics = filteredTopics.slice(0, pageSize)
         }
-        
+
         const topics = filteredTopics.map(t => t.modelGET())
 
         const continuation : string = encodeURI(JSON.stringify({
