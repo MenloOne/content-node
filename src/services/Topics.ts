@@ -113,6 +113,8 @@ export class Topics {
 
         let allTopics: Topic[]
         allTopics = this.topics.slice()
+        allTopics.forEach(t => t.endTime = t.forum!.endTimestamp)
+
         const j = allTopics.length
         allTopics = allTopics.concat(this.unconfirmedTopics)
         for (let i = j; i < allTopics.length; i++ ) {
@@ -131,12 +133,17 @@ export class Topics {
             filteredTopics = allTopics.filter(t => queryRegExp.test(t.title.toLowerCase()))
         }
 
+        const total = filteredTopics.length
+
+        filteredTopics.sort((a, b) => a.endTime - b.endTime) // Descending by endTime
         if (notAfter) {
             filteredTopics = filteredTopics.filter(t => t.endTime < notAfter)
+        } else {
+            filteredTopics = filteredTopics.slice(0, pageSize)
         }
+        
+        const topics = filteredTopics.map(t => t.modelGET())
 
-        filteredTopics.sort((a, b) => b.endTime - a.endTime) // Descending by endTime
-        const topics = filteredTopics.slice(0, pageSize).map(t => t.modelGET())
         const continuation : string = encodeURI(JSON.stringify({
             query,
             notAfter: topics.length === 0 ? 0 : topics[topics.length - 1].endTime,
@@ -146,7 +153,7 @@ export class Topics {
         return {
             ACTION_NEWTOPIC: this.actions.newTopic,
             query:           this.query,
-            total:           allTopics.length,
+            total,
             continuation,
             topics
         }

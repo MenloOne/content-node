@@ -14,14 +14,12 @@ export default class Topic extends IPFSTopic {
 
     public messageHash: string
     public body: string
-
-    // Read from Forum contract
-    public endTime: number
-    public isClaimed: boolean
     public ethTransaction: string | null
 
     public confirmed: boolean
     public filled: boolean
+
+    public endTime: number
 
     error: Error | null = null
 
@@ -45,7 +43,6 @@ export default class Topic extends IPFSTopic {
             this.body    = topic.body
             this.confirmed = topic.confirmed
             this.ethTransaction = topic.transaction
-            this.isClaimed =  false
 
             this.filled = true
         } else {
