@@ -6,6 +6,8 @@ import { MessageCTOGet, TopicCTOGet, TopicCTOPost } from '../ContentNode/BlockOv
 
 export default class Topic extends IPFSTopic {
 
+    private TOPIC_LENGTH_SECONDS : number = 24 * 60 * 60
+
     public topics: Topics
 
     public forum: Forum | null = null
@@ -80,6 +82,8 @@ export default class Topic extends IPFSTopic {
 
             const message = this.forum.messages.get(this.forum.messageHashes[this.forum.winningOffset])
             forum.winningMessage = message ? message.modelGET() : null
+        } else {
+            forum.endTime = (new Date().getTime() + this.TOPIC_LENGTH_SECONDS * 1000) / 1000
         }
 
         return {
