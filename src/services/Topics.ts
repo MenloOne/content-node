@@ -46,6 +46,7 @@ export class Topics {
     public query: string = ''
 
     private TOPIC_LENGTH_SECONDS : number = 24 * 60 * 60
+    private MAX_UNCONFIRMED_AGE : number = 5 * 60 * 60 * 1000
     private MAX_PAGELENGTH: number = 30
 
     private signalReady: () => void
@@ -109,16 +110,24 @@ export class Topics {
     }
 
     modelGET(query: string | null, _pageSize: number = this.MAX_PAGELENGTH, notAfter?: number) : TopicsCTOGet {
+        const now = new Date().getTime()
         const pageSize = Math.min(_pageSize, this.MAX_PAGELENGTH)
 
         let allTopics: Topic[]
         allTopics = this.topics.slice()
         allTopics.forEach(t => t.endTime = t.forum!.endTimestamp)
 
+        // Remove old unconfirmed topics
+        this.unconfirmedTopics.forEach( t => {
+            if (now - t.date > this.MAX_UNCONFIRMED_AGE) {
+                this.removeTopic(t.id)
+            }
+        })
+
         const j = allTopics.length
         allTopics = allTopics.concat(this.unconfirmedTopics)
         for (let i = j; i < allTopics.length; i++ ) {
-            allTopics[i].endTime = (new Date().getTime() + this.TOPIC_LENGTH_SECONDS * 1000) / 1000
+            allTopics[i].endTime = (now + this.TOPIC_LENGTH_SECONDS * 1000) / 1000
         }
 
         let filteredTopics: Topic[]
