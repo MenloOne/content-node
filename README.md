@@ -1,7 +1,7 @@
 ![Menlo One](https://raw.githubusercontent.com/MenloOne/menlo-one-logos/master/menlo-one-blue-logo-transparent90x90.svg?sanitize=true "")
 
 ## Menlo One - Content Node
-[![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MenloOne/temp/blob/master/LICENSE)
+[![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MenloOne/temp/content-node/master/LICENSE)
 [![npm version](https://badge.fury.io/js/menlo-token.svg)](https://badge.fury.io/js/menlo-token)
 
 **[Menlo One Home](https://menlo.one)** |
